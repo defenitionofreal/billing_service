@@ -41,11 +41,11 @@ jobs:
     - name: Django Testing
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        DB_NAME: ${{ secrets.DATABASE_NAME }}
-        DB_USER: ${{ secrets.DATABASE_USER }}
-        DB_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-        DB_HOST: ${{ secrets.DATABASE_HOST }}
-        DB_PORT: ${{ secrets.DATABASE_PORT }}
-        DB_ENGINE: ${{secrets.DATABASE_ENGINE}}
+        DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+        DATABASE_USER: ${{ secrets.DATABASE_USER }}
+        DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+        DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+        DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
+        DATABASE_ENGINE: ${{secrets.DATABASE_ENGINE}}
       run: |
         python3 manage.py test
