@@ -1,9 +1,35 @@
-Django starter template
+Тестовое задание от Ylab
 =====================
+***
 
-My Django starter template. Going to change a little from time to time. But even now it saves a lot of time!
+**Описание**
+Создать web-сервис биллинг. Сервис должен предоставлять 3 endpoint-а  по управлению счетами:
 
-**Install**
+1. Создать счет. Входные парамеры: название, флаг овердрафности(true – возможен нелимитированный уход в минус). 
+Результат: идентификатор счета.
+
+2. Перевести деньги со счета А на счет Б. Входные параметры: идентификатор счета донора, идентификатор счета реципиента, сумма перевода. 
+Результат: успех или нет
+
+3. Запрос баланса счета. Входные параметры: идентификатор счета. Результат: сумма
+
+Данные о счетах и операциях по ним должны храниться в реляционной СУБД
+Выполнить сервис на базе DRF с СУБД postgresql.
+Покрыть код автотестами, юнит тестами и интеграционными тестами (По возможности)
+
+***
+
+**Решение**
+
+Начну пожалуй с того, что у меня два приложения base и billing и я должен объяснить почему. 
+Все потому что я использовал свой готовый шаблон для api проекта https://github.com/defenitionofreal/django-starter-template/tree/api-jwt
+Это помогает сэкономить немного времени на первоначальных настройках проекта. 
+В шаблоне я настраивал кастомную модель юзера и аутентификацию jwt, но в этом задании я этого не использую из-за ненадобности да и для того, чтобы проще было через postman все протестировать и не париться с jwt. Так же есть папочка templates, это тоже стартовые настройки где я просто смотрю, что статика вся подключилась и не трачу на это время.
+
+Вообщем я решил не убирать эти натсройки, а просто объяснить почему так. Думаю это не страшно и понятно, что всё лишнее всегда можно удалить быстро. Как говорится разрушать не строить и поэтому настройки base приложения остались. Вам интересно сразу приложение billing!
+
+**Установка:**
+
 ```
 mkdir new_project
 cd new_project
@@ -11,16 +37,36 @@ python3 -m venv venv
 source venv/bin/activate
 mkdir src
 cd src
-git clone https://github.com/defenitionofreal/django-starter-template.git
+git clone https://github.com/defenitionofreal/ylab_test.git
 pip install -r requirements.txt
+
+# создать базу postgres
+createuser -dP Ylab
+придумать пароль, у меня это 123
+createdb -E utf8 -U Ylab Ylab
+
+# переключиться на настройки dev
+make dev
+# миграции
+make migration
+# загрузите готовые данные в базу
+make fixture
+# запуск
+make run
+# тесты
+make test
 ```
 
-Generate random secret key - https://djecrety.ir/
 
-Or do something like this:
-```
-from django.core.management.utils import get_random_secret_key  
-get_random_secret_key()
-```
+**API endpoints:**
 
-**In .gitingore dont forget to uncomment .env, local.py and media !!!**
+```
+# Создать счет
+http://127.0.0.1:8000/api/v1/billing/
+
+# Перевести деньги со счета А на счет Б
+http://127.0.0.1:8000/api/v1/transfer/
+
+# Запрос баланса счета
+http://127.0.0.1:8000/api/v1/billing/get_balance?id=1
+```
