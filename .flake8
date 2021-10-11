@@ -6,4 +6,6 @@ exclude =
   .venv,
   build,
   tests/fixtures/*,
-  *migrations
+  *migrations,
+  project/settings/*,
+  manage.py,

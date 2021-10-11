@@ -1,6 +1,7 @@
 from ..models import Billing
 from rest_framework import serializers
 
+
 def sender_receiver(sender_data, receiver_data, amount_data):
     sender = sender_data
     receiver = receiver_data
@@ -18,6 +19,7 @@ def sender_receiver(sender_data, receiver_data, amount_data):
                 value=receiver
             )
         )
+
 
 def make_transfer(sender_data, receiver_data, amount_data):
     count_bill = sender_data.billing - amount_data
