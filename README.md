@@ -1,42 +1,32 @@
-Тестовое задание от Ylab
+Billing web service
 =====================
 ***
 
-**Описание**
+**Description**
 
-Создать web-сервис биллинг. Сервис должен предоставлять 3 endpoint-а  по управлению счетами:
+The service provides 3 endpoints for account management:
 
-1. Создать счет. 
+1. Create an account.
 
-Входные парамеры: название, флаг овердрафности(true – возможен нелимитированный уход в минус). 
-Результат: идентификатор счета.
+Input parameters: name, overdraft flag (true - an unlimited minus move is possible).
+Result: account ID.
 
-2. Перевести деньги со счета А на счет Б. 
+2. Transfer money from account A to account B.
 
-Входные параметры: идентификатор счета донора, идентификатор счета реципиента, сумма перевода. 
-Результат: успех или нет
+Input parameters: donor ID, recipient account ID, transfer amount.
+Result: success or not
 
-3. Запрос баланса счета. 
+3. Request for account balance.
 
-Входные параметры: идентификатор счета. Результат: сумма
+Input parameters: account ID. Result: sum
 
-Данные о счетах и операциях по ним должны храниться в реляционной СУБД
-Выполнить сервис на базе DRF с СУБД postgresql.
-Покрыть код автотестами, юнит тестами и интеграционными тестами (По возможности)
+Account data and transactions must be stored in a relational DBMS.
+Execute a DRF based service with postgresql DBMS.
+Cover the code with autotests, unit tests
 
 ***
 
-**Решение**
-
-Начну пожалуй с того, что у меня два приложения base и billing и я должен объяснить почему. 
-Все потому что я использовал свой готовый шаблон для api проекта https://github.com/defenitionofreal/django-starter-template/tree/api-jwt
-
-Это помогает сэкономить немного времени на первоначальных настройках проекта. 
-В шаблоне я настраивал кастомную модель юзера и аутентификацию jwt, но в этом задании я этого не использую из-за ненадобности да и для того, чтобы проще было через postman все протестировать и не париться с jwt. Так же есть папочка templates, это тоже стартовые настройки где я просто смотрю, что статика вся подключилась и не трачу на это время.
-
-Вообщем я решил не убирать эти натсройки, а просто объяснить почему так. Думаю это не страшно и понятно, что всё лишнее всегда можно удалить быстро. Как говорится разрушать не строить и поэтому настройки base приложения остались. Вам интересно сразу приложение billing!
-
-**Установка:**
+**Install:**
 
 ```
 mkdir new_project
@@ -69,12 +59,12 @@ make test
 **API endpoints:**
 
 ```
-# Создать счет
+# Create an account
 http://127.0.0.1:8000/api/v1/billing/
 
-# Перевести деньги со счета А на счет Б
+# Transfer money
 http://127.0.0.1:8000/api/v1/transfer/
 
-# Запрос баланса счета
+# Request for account balance
 http://127.0.0.1:8000/api/v1/billing/get_balance?id=1
 ```
