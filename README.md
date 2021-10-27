@@ -38,20 +38,20 @@ cd src
 git clone https://github.com/defenitionofreal/ylab_test.git
 pip install -r requirements.txt
 
-# создать базу postgres
+# create db
 createuser -dP Ylab
 придумать пароль, у меня это 123
 createdb -E utf8 -U Ylab Ylab
 
-# переключиться на настройки dev
+# settings.dev
 make dev
 # миграции
 make migration
-# загрузите готовые данные в базу
+# load fixtures
 make fixture
-# запуск
+# runserver
 make run
-# тесты
+# run tests
 make test
 ```
 
